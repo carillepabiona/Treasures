@@ -1,0 +1,179 @@
+﻿@page "/"
+@inject NavigationManager Navigation
+<head>
+    <link rel="stylesheet" href="HomeStyle.css">
+   
+</head>
+
+<SectionContent SectionName="page-buttons">
+    <div id="searchBox" class="input-group header-search" style="display:none;">
+        <span class="input-group-text text-warning"><i class="fa fa-search"></i></span>
+        <input id="txtSearch" type="text" class="form-control" placeholder="Search" value="@Model.Search" @onchange="SearchTerm" />
+        <span class="input-group-text" onclick="hideSearchBox()"><i class="fa fa-times"></i></span>
+    </div>
+    <span id="controlBox">
+        <button class="btn text-warning" onclick="showSearchBox()">
+            <i class="fa fa-search"></i>
+        </button>
+    </span>    
+</SectionContent>
+
+
+<!-- Cart Sidebar -->
+<div id="cartSidebar" class="sidebar">
+    <div class="cart-header">
+        <i class='bx bx-chevron-right' onclick="toggleCart()" style="cursor: pointer;"></i>
+        My Cart
+    </div>
+    <div class="cart-body" id="cartItems"></div>
+    <div class="cart-footer">
+        <p>Total: ₱<span id="cartTotal">0.00</span></p>
+        <button class="checkout-btn" onclick="placeOrder()">Order Now</button>
+    </div>
+</div>
+
+<!-- Chat Box -->
+
+<div id="chatBox" class="sidebar">
+    <div class="chat-header" onclick="toggleChat()">Chat Box</div>
+    <div class="chat-content" id="chatContent"></div>
+    <div class="chat-input">
+        <input type="text" id="chatMessage" placeholder="Type your message..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<section id="adSection1" style="width:100%">
+    <div class="cycle-slideshow">
+        <img src="/28_Treasures_Menu/1.png" style="width:100%" />
+        <img src="/28_Treasures_Menu/2.png" style="width:100%" />
+    </div>
+</section>
+
+<section>
+    <h4>FOOD CATEGORIES</h4>
+    <div class="categories">
+        <div class="category-card" onclick="filterCategory('Noodles')">
+            <img src="28_Treasures_Menu/Hofan_Noodles.jpg" alt="Noodles">
+            <p>Noodles</p>
+        </div>
+        <div class="category-card" onclick="filterCategory('RiceTopping')">
+            <img src="28_Treasures_Menu/Yang_Chow_Fried_Rice.jpg" alt="Rice Topping">
+            <p>Rice Topping</p>
+        </div>
+        <div class="category-card" onclick="filterCategory('SweetDessert')">
+            <img src="28_Treasures_Menu/Hakaw.jpg" alt="Sweet Dessert">
+            <p>Sweet Dessert</p>
+        </div>
+        <div class="category-card" onclick="filterCategory('Drinks')">
+            <img src="28_Treasures_Menu/Hakaw.jpg" alt="Drinks">
+            <p>Drinks</p>
+        </div>
+        <div class="category-card" onclick="filterCategory('RoastedMeat')">
+            <img src="28_Treasures_Menu/Hakaw.jpg" alt="Roasted Meat">
+            <p>Roasted Meat</p>
+        </div>
+        <div class="category-card" onclick="filterCategory('Dimsum')">
+            <img src="28_Treasures_Menu/Kutchay_Dumpling.jpg" alt="Dimsum">
+            <p>Dimsum</p>
+        </div>
+        <div class="category-card" onclick="filterCategory('Soup')">
+            <img src="28_Treasures_Menu/Polonchay_with_three_mushrooms.jpg" alt="Soup">
+            <p>Soup</p>
+        </div>
+        <div class="category-card" onclick="filterCategory('Appetizer')">
+            <img src="28_Treasures_Menu/Polonchay_with_three_mushrooms.jpg" alt="Appetizer">
+            <p>Appetizer</p>
+        </div>
+        <div class="category-card" onclick="filterCategory('Rice')">
+            <img src="28_Treasures_Menu/Polonchay_with_three_mushrooms.jpg" alt="Rice">
+            <p>Rice</p>
+        </div>
+        <div class="category-card" onclick="filterCategory('Vegetables')">
+            <img src="28_Treasures_Menu/Polonchay_with_three_mushrooms.jpg" alt="Vegetables">
+            <p>Vegetables</p>
+        </div>
+        <div class="category-card" onclick="filterCategory('Beef')">
+            <img src="28_Treasures_Menu/Polonchay_with_three_mushrooms.jpg" alt="Beef">
+            <p>Beef</p>
+        </div>
+        <div class="category-card" onclick="filterCategory('Pork')">
+            <img src="28_Treasures_Menu/Polonchay_with_three_mushrooms.jpg" alt="Pork">
+            <p>Pork</p>
+        </div>
+        <div class="category-card" onclick="filterCategory('Chicken')">
+            <img src="28_Treasures_Menu/Polonchay_with_three_mushrooms.jpg" alt="Chicken">
+            <p>Chicken</p>
+        </div>
+        <div class="category-card" onclick="filterCategory('Seafood')">
+            <img src="28_Treasures_Menu/Polonchay_with_three_mushrooms.jpg" alt="Seafood">
+            <p>Seafood</p>
+        </div>
+    </div>
+</section>
+
+<section id="filteredItems">
+    <!-- Food Items Section -->
+    <div class="food-items">
+        <h4>FOOD ITEMS</h4>
+        <div class="food-grid" id="foodGrid">
+            <!-- Food items dynamically added here -->
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Cart Button -->
+<button class="cart-button" onclick="toggleCart()">🛒</button>
+<!-- Chat Toggle Button -->
+<button class="chat-toggle" onclick="toggleChat()">💬</button>
+
+<script src="js/jquery.cycle2.js"></script>
+<script src="js/script.js"></script>
+<script>
+
+    function showSearchBox() {
+        $('#searchBox').show();    
+        $('#controlBox').hide();
+    }
+
+    function hideSearchBox() {
+        $('#searchBox').hide();
+        $('#controlBox').show();
+    }
+
+</script>
+
+ @code{
+    private string CartClass = "";
+    private List<string> cartItems = new List<string>();
+
+    void ToggleCart()
+    {
+        CartClass = CartClass == "open" ? "" : "open";
+    }
+
+    void ToggleChat()
+    {
+        // Similar logic for chat
+    }
+
+    private HashSet<int> favoriteItems = new HashSet<int>();
+
+    private bool IsFavorite(int itemId) => favoriteItems.Contains(itemId);
+
+    private void ToggleFavorite(int itemId)
+    {
+        if (favoriteItems.Contains(itemId))
+            favoriteItems.Remove(itemId);
+        else
+            favoriteItems.Add(itemId);
+    }
+
+    void GoToAddToCart()
+    {
+        Navigation.NavigateTo("addtocart");
+    }
+ }
