@@ -360,7 +360,7 @@ body {
 
 .chat-content {
     padding: 10px;
-    max-height: 200px;
+    max-height: 300px;
     overflow-y: auto;
 }
 
@@ -415,4 +415,13 @@ body {
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     z-index: 999;
+}
+
+.sidebar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    height: 80%;
+    z-index: 1000;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.3);
 }
