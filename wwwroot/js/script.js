@@ -92,12 +92,12 @@ function updateCartUI() {
         div.innerHTML = `
             <div class="cart-item-details">
                 <img src="${item.img}" alt="${item.name}">
-                <div class="item-details">
-                    <strong>${item.name}</strong>
+                <div class="item-details"> 
                     <p>₱${item.price.toFixed(2)} x ${item.quantity}</p>
                 </div>
             </div>
             <div class="quantity-controls">
+            <h6>${item.name}</h6>
                 <button class="quantity-button" onclick="decreaseQuantity(${index})">-</button>
                 <span>${item.quantity}</span>
                 <button class="quantity-button" onclick="increaseQuantity(${index})">+</button>
@@ -113,7 +113,19 @@ function updateCartUI() {
 // ----- Toggle Cart (opens/closes cart sidebar) -----
 function toggleCart() {
     const cartSidebar = document.getElementById("cartSidebar");
-    cartSidebar.classList.toggle("open"); // Toggle the 'open' class to show/hide the sidebar
+    const chatBox = document.getElementById("chatBox");
+    const chatToggle = document.querySelector(".chat-toggle");
+
+    cartSidebar.classList.toggle("open");
+
+    if (cartSidebar.classList.contains("open")) {
+        if (chatBox.classList.contains("open")) {
+            chatBox.classList.remove("open");
+        }
+        chatToggle.style.display = "none";
+    } else {
+        chatToggle.style.display = "block";
+    }
 }
 
 // ----- Chat Box Logic -----
