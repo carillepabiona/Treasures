@@ -28,11 +28,11 @@ function renderFoodItems(items) {
         const card = document.createElement("div");
         card.className = "food-card";
         card.innerHTML = `
-          <img src="${item.img}" alt="${item.name}">
-          <h6>${item.name}</h6>
-          <h6>₱${item.price.toFixed(2)}</h6>
-          <button onclick="addToCart(${item.id})">Add to Cart</button>
-          <button onclick="ToggleFavorite()">❤️</button>
+            <img src="${item.img}" alt="${item.name}">
+            <h6>${item.name}</h6>
+            <h6>₱${item.price.toFixed(2)}</h6>
+            <button class="add-to-cart" onclick="addToCart(${item.id})">Add to Cart</button>
+            <button class="favorite-button" onclick="ToggleFavorite()">❤️</button>
         `;
         foodGrid.appendChild(card);
     });
@@ -50,28 +50,63 @@ function filterCategory(cat) {
 let cart = [];
 function addToCart(id) {
     const foodItem = foodData.find(item => item.id === id);
-    cart.push(foodItem);
+    const existingItem = cart.find(item => item.id === foodItem.id);
+
+    if (existingItem) {
+        existingItem.quantity++;
+    } else {
+        cart.push({ ...foodItem, quantity: 1 });
+    }
     updateCartUI();
 }
+
 function removeFromCart(index) {
     cart.splice(index, 1);
     updateCartUI();
 }
+
+function increaseQuantity(index) {
+    cart[index].quantity++;
+    updateCartUI();
+}
+
+function decreaseQuantity(index) {
+    if (cart[index].quantity > 1) {
+        cart[index].quantity--;
+    } else {
+        removeFromCart(index);
+    }
+    updateCartUI();
+}
+
 function updateCartUI() {
     const cartItemsDiv = document.getElementById("cartItems");
     const cartTotalSpan = document.getElementById("cartTotal");
     cartItemsDiv.innerHTML = "";
     let total = 0;
+
     cart.forEach((item, index) => {
-        total += item.price;
+        total += item.price * item.quantity;
         const div = document.createElement("div");
         div.className = "cart-item";
         div.innerHTML = `
-          <span>${item.name} - ₱${item.price.toFixed(2)}</span>
-          <button onclick="removeFromCart(${index})">X</button>
+            <div class="cart-item-details">
+                <img src="${item.img}" alt="${item.name}">
+                <div class="item-details">
+                    <strong>${item.name}</strong>
+                    <p>₱${item.price.toFixed(2)} x ${item.quantity}</p>
+                </div>
+            </div>
+            <div class="quantity-controls">
+                <button class="quantity-button" onclick="decreaseQuantity(${index})">-</button>
+                <span>${item.quantity}</span>
+                <button class="quantity-button" onclick="increaseQuantity(${index})">+</button>
+                <button class="delete-button" onclick="removeFromCart(${index})">X</button>
+            </div>
         `;
         cartItemsDiv.appendChild(div);
     });
+
     cartTotalSpan.textContent = total.toFixed(2);
 }
 
@@ -80,6 +115,7 @@ function toggleCart() {
     const cartSidebar = document.getElementById("cartSidebar");
     cartSidebar.classList.toggle("open"); // Toggle the 'open' class to show/hide the sidebar
 }
+
 // ----- Chat Box Logic -----
 function toggleChat(event) {
     const chatBox = document.getElementById("chatBox");

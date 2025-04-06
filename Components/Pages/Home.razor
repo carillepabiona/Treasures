@@ -26,16 +26,48 @@
 
 
 <!-- Cart Sidebar -->
-<div id="cartSidebar" class="sidebar">
-    <div class="cart-header">
-        <i class='bx bx-chevron-right' onclick="toggleCart()" style="cursor: pointer;"></i>
-        My Cart
+@*<div id="cartSidebar" class="sidebar" style="background-color: FFECB3; border: 3px solid #FF6F00; width: 300px;">
+    <div class="cart-header" onclick="toggleChat()" style="background-color: #FF6F00; color: white; padding: 10px; font-size: 18px;">
+        Menu Cart
     </div>
-    <div class="cart-body" id="cartItems"></div>
+    <div class="cart-body" id="cartItems" style="height: 400px; width: 295px; overflow-y: auto; padding: 10px; background-color: #FFF3E0;"> </div>
     <div class="cart-footer">
         <p>Total: ₱<span id="cartTotal">0.00</span></p>
         <button class="checkout-btn" onclick="placeOrder()">Order Now</button>
     </div>
+</div>*@
+
+<!-- Cart Sidebar -->
+<div id="cartSidebar" class="sidebar" style="background-color: #FFECB3; border: 3px solid #FF6F00; width: 300px;">
+    <div class="cart-header" style="background-color: #FF6F00; color: white; padding: 10px; font-size: 18px;">
+         <i class="fas fa-chevron-left" @onclick="ToggleCart"></i>
+        Menu Cart
+    </div>
+
+    <div class="cart-body" id="cartItems" style="height: 400px; width: 295px; overflow-y: auto; padding: 10px; background-color: #FFF3E0;">
+        @foreach (var item in CartItems)
+        {
+                <div class="cart-item">
+                    <img src="@item.ImageUrl" class="item-image" alt="@item.Name" />
+                    <div class="item-details">
+                        <strong>@item.Name</strong>
+                        <p>₱@item.Price</p>
+                    </div>
+                    <div class="quantity-controls">
+                        <button @onclick="() => DecreaseQuantity(item)">−</button>
+                        <span>@item.Quantity</span>
+                        <button @onclick="() => IncreaseQuantity(item)">+</button>
+                    </div>
+                    <button class="delete-button" @onclick="() => RemoveItem(item)">🗑️</button>
+                </div>
+        }
+    </div>
+    <footer>
+        <div class="cart-footer" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background-color: #FFE0B2;">
+        <p style="margin: 0;">Total: ₱<span>@Total</span></p>
+        <button class="checkout-btn" @onclick="PlaceOrder">Order Now</button>
+    </div>
+    </footer>
 </div>
 
 <!-- Chat Box -->
@@ -267,4 +299,24 @@
             }
         }
     }
+    public class CartItem
+    {
+        public string Name { get; set; }
+        public string ImageUrl { get; set; }
+        public int Quantity { get; set; }
+        public decimal Price { get; set; }
+    }
+
+    List<CartItem> CartItems = new()
+    {
+        new CartItem { Name = "Hakaw", ImageUrl = "28_Treasures_Menu/hakaw.jpg", Quantity = 1, Price = 163 },
+        new CartItem { Name = "Asado Pork", ImageUrl = "28_Treasures_Menu/Asado_Pork.jpg", Quantity = 1, Price = 145 }
+    };
+
+    decimal Total => CartItems.Sum(x => x.Quantity * x.Price);
+
+    void IncreaseQuantity(CartItem item) => item.Quantity++;
+    void DecreaseQuantity(CartItem item) { if (item.Quantity > 1) item.Quantity--; }
+    void RemoveItem(CartItem item) => CartItems.Remove(item);
+    void PlaceOrder() => Console.WriteLine("Order placed!");
  }
