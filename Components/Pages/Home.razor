@@ -5,6 +5,7 @@
 @using System.Text;
 @using System.Threading.Tasks;
 @inject IJSRuntime JSRuntime
+@inject IJSRuntime JS
 
 <head>
     <link rel="stylesheet" href="HomeStyle.css">
@@ -100,7 +101,10 @@
         </div>
     </div>
 </section>
-
+<!-- Chat History -->
+<div id="chatHistory" class="chat-history">
+    <!-- Messages will appear here -->
+</div>
 
 
 <!-- Cart Button -->
@@ -109,16 +113,16 @@
     <span id="cartBadge" class="badge" style="display: none;">0</span>
 </button>
 
-<!-- Chat Toggle Button -->
 <button class="chat-toggle" onclick="toggleChat(event)">
     💬
-    <span id="chatBadge" class="dot" style="display: none;"></span>
+    <span id="chatBadge" class="badge" style="display: none;">0</span> <!-- Updated to use a number badge -->
 </button>
 
 <script src="js/jquery.cycle2.js"></script>
 <script src="js/script.js"></script>
 
  @code{
+    private int UnreadMessagesCount = 0;  // Track unread messages
     public class FoodCategory   
     {
         public string Name { get; set; }           // used for filterCategory('...')
@@ -168,14 +172,12 @@
             favoriteItems.Add(itemId);
     }
 
-  
-
     private TcpListener _listener;
     private const int Port = 5000;
     private List<string> Messages = new();
     private string OutgoingMessage = "";
 
-    private const string SenderIP = "192.168.254.143"; // Update to actual sender IP
+    private const string SenderIP = "192.168.254.102"; // Update to actual sender IP
     private const int SenderPort = 5000;
 
     protected override async Task OnInitializedAsync()
@@ -211,7 +213,14 @@
             int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
             string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
 
+            // Add the incoming message to the list and update unread message count
             Messages.Add($"Sender: {message}");
+            UnreadMessagesCount++;  // Increment unread message count
+
+            // Trigger JavaScript function to show chat notification
+            await JS.InvokeVoidAsync("receiveNewMessage", message);
+
+            // Optionally update the UI with the message
             await InvokeAsync(StateHasChanged);
         }
         catch (Exception ex)

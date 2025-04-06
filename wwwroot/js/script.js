@@ -252,12 +252,21 @@ function updateCartUI() {
     }
 }
 
-// Chat Notification function
+// ----- Chat Notification function -----
 function showChatNotification() {
     const chatBadge = document.getElementById("chatBadge");
     if (!document.getElementById("chatBox").classList.contains("open")) {
+        unreadMessagesCount++;
+        chatBadge.textContent = unreadMessagesCount;  // Update the badge with unread message count
         chatBadge.style.display = "inline-block";
     }
+}
+function receiveNewMessage(message) {
+    showChatNotification();  // Call the notification function
+    const chatHistory = document.getElementById("chatHistory");
+    const newMessageElement = document.createElement("div");
+    newMessageElement.textContent = message;
+    chatHistory.appendChild(newMessageElement);
 }
 
 // ----- Toggle Cart (opens/closes cart sidebar) -----
@@ -283,6 +292,13 @@ function toggleChat(event) {
     const chatBox = document.getElementById("chatBox");
     const cartSidebar = document.getElementById("cartSidebar");
 
+    // Reset unread messages count when opening chat box
+    if (!chatBox.classList.contains("open")) {
+        unreadMessagesCount = 0;
+        const chatBadge = document.getElementById("chatBadge");
+        chatBadge.style.display = "none";  // Hide the badge when the chat is opened
+    }
+
     // Close cart if open
     if (cartSidebar.classList.contains("open")) {
         cartSidebar.classList.remove("open");
@@ -299,6 +315,7 @@ function toggleChat(event) {
 
     event.stopPropagation(); // Prevent click from propagating
 }
+
 
 // ----- Close Cart or Chat when Clicking Outside -----
 function closeOnClickOutside(event) {
@@ -319,5 +336,19 @@ function closeOnClickOutside(event) {
 
         // Remove event listener to prevent unnecessary checks
         document.removeEventListener("click", closeOnClickOutside);
+    }
+
+
+    // ----- Function to receive a new message from the backend -----
+    // This should be triggered from your TCP connection or backend message handling
+    function receiveNewMessage(message) {
+        // Call the function to show notification
+        showChatNotification();
+
+        // Optionally, append the message to a chat box or chat history
+        const chatHistory = document.getElementById("chatHistory");
+        const newMessageElement = document.createElement("div");
+        newMessageElement.textContent = message;
+        chatHistory.appendChild(newMessageElement);
     }
 }
