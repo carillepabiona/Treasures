@@ -13,7 +13,7 @@
 </head>
 
 <SectionContent SectionName="page-buttons">
-    <div id="searchBox" class="input-group header-search" style="display:none;">
+    <div id="searchBox" class="input-group header-search" style="display:none; width:500px; ">
         <span class="input-group-text text-warning"><i class="fa fa-search"></i></span>
         <input id="txtSearch" type="text" class="form-control" placeholder="Search" value="@Model.Search" @onchange="SearchTerm" />
         <span class="input-group-text" onclick="hideSearchBox()"><i class="fa fa-times"></i></span>
@@ -252,4 +252,23 @@
             }
         }
     }
+    public class CartItem
+    {
+        public string Name { get; set; }
+        public string ImageUrl { get; set; }
+        public int Quantity { get; set; }
+        public decimal Price { get; set; }
+    }
+
+    List<CartItem> CartItems = new()
+    {
+        
+    };
+
+    decimal Total => CartItems.Sum(x => x.Quantity * x.Price);
+
+    void IncreaseQuantity(CartItem item) => item.Quantity++;
+    void DecreaseQuantity(CartItem item) { if (item.Quantity > 1) item.Quantity--; }
+    void RemoveItem(CartItem item) => CartItems.Remove(item);
+    void PlaceOrder() => Console.WriteLine("Order placed!");
  }
