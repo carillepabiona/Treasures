@@ -252,23 +252,4 @@
             }
         }
     }
-    public class CartItem
-    {
-        public string Name { get; set; }
-        public string ImageUrl { get; set; }
-        public int Quantity { get; set; }
-        public decimal Price { get; set; }
-    }
-
-    List<CartItem> CartItems = new()
-    {
-        
-    };
-
-    decimal Total => CartItems.Sum(x => x.Quantity * x.Price);
-
-    void IncreaseQuantity(CartItem item) => item.Quantity++;
-    void DecreaseQuantity(CartItem item) { if (item.Quantity > 1) item.Quantity--; }
-    void RemoveItem(CartItem item) => CartItems.Remove(item);
-    void PlaceOrder() => Console.WriteLine("Order placed!");
  }
