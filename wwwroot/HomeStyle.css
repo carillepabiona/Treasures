@@ -232,20 +232,20 @@ body {
     .add-to-cart i:hover {
         color: #ff4500;
     }
-/* ----- Cart Sidebar ----- */
 #cartSidebar {
     position: fixed;
     right: 0;
-    top: 0;
+    top: 70px;
     width: 300px;
     height: 100%;
-    background: #fff;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+    background: #FFF3E0;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
     z-index: 999;
     display: flex;
     flex-direction: column;
+    border-left: 3px solid #FF6F00;
 }
 
     #cartSidebar.open {
@@ -253,41 +253,24 @@ body {
     }
 
 .cart-header {
-    background: #526E48;
-    color: rgba(0,0,0,0.9);
+    background: #FF6F00;
+    color: white;
     padding: 15px;
     font-size: 18px;
     text-align: center;
     position: relative;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
     .cart-header i {
         position: absolute;
-        left: 15px; /* Moves chevron to the left */
+        left: 15px;
         top: 50%;
         transform: translateY(-50%);
         font-size: 24px;
         cursor: pointer;
-    }
-
-/* ----- Cart Sidebar ----- */
-#cartSidebar {
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 250px;
-    height: 100%;
-    background: #fff;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.2);
-    transform: translateX(100%); /* Initially hidden */
-    transition: transform 0.3s ease-in-out;
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
-}
-
-    #cartSidebar.open {
-        transform: translateX(0); /* Slide in when 'open' class is added */
+        color: white;
     }
 
 .cart-body {
@@ -298,46 +281,95 @@ body {
 
 .cart-footer {
     padding: 15px;
-    border-top: 10px solid #ddd;
-}
-
-.cart-item {
+    background-color: #FFE0B2;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
-    background: #f9f9f9;
-    padding: 5px;
-    border-radius: 5px;
+    align-items: center;
+    border-top: 4px solid #FFB74D;
 }
 
-    .cart-item button {
-        background: #f9f9f9;
-        color: rgba(0,0,0,0.8);
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        padding: 2px 5px;
-        font-size: 12px;
-        margin-top: 20px;
-    }
-
+/* Ensure button is visible and responsive */
 .checkout-btn {
-    background: #28a745;
+    background: #FF6F00;
     color: #fff;
     width: 100%;
     padding: 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Cart Item */
+.cart-item {
+    display: flex;
+    align-items: center;
+    background: #FFE0B2;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
+    position: relative;
+    gap: 10px;
+}
+
+    .cart-item img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .cart-item .item-details {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .cart-item .item-details strong {
+            font-size: 14px;
+        }
+
+        .cart-item .item-details p {
+            margin: 2px 0 0;
+            font-size: 13px;
+            color: #333;
+        }
+
+.quantity-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+    .quantity-controls button {
+        background-color: #FFB74D;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 8px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 11px;
+    }
+
+.cart-item .delete-button {
+    background: none;
+    border: none;
+    font-size: 12px;
+    color: #D84315;
+    position: absolute;
+    top: 3px;
+    right: 5px;
     cursor: pointer;
 }
 
 /* ----- Chat Box ----- */
 #chatBox {
     position: fixed;
-    bottom: 20px;
+    bottom: 30px;
     right: 20px;
-    width: 300px;
+    width: 250px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -360,7 +392,7 @@ body {
 
 .chat-content {
     padding: 10px;
-    max-height: 300px;
+    max-height: 350px;
     overflow-y: auto;
 }
 
@@ -387,7 +419,7 @@ body {
 /* ----- Cart & Chat Buttons ----- */
 .cart-button {
     position: fixed;
-    top: 20px;
+    top: 70px;
     right: 20px;
     background: #007bff;
     color: #fff;
@@ -403,7 +435,7 @@ body {
 
 .chat-toggle {
     position: fixed;
-    bottom: 30px;
+    bottom: 20px;
     right: 20px;
     background: #6c757d;
     color: #fff;
