@@ -37,5 +37,8 @@ namespace Treasure.Models
         public string ModifiedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
+
+        // Add Image Property
+        public string Image { get; set; } // Path to image file
     }
 }
