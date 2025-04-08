@@ -9,7 +9,7 @@
     }
 </style>
 <nav class="mobile-nav" onclick="hideMenu()">
-    @if (AppShell.IsUserLoggedIn)
+  @* @if (AppShell.IsUserLoggedIn)
     {
         if (AppShell.CurrentUser!=null)
         {
@@ -22,10 +22,15 @@
 
             </div>
         }
-    }
+    }*@ 
     <ul>
         <li>
             <a class="nav-link" href="">
+                <i class="fa fa-home"></i>&nbsp;Start
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="/home">
                 <i class="fa fa-home"></i>&nbsp;Home
             </a>
         </li>
@@ -46,8 +51,7 @@
         </li>
 
     </ul>
-    <hr />
-    @if (AppShell.IsUserLoggedIn)
+  @*  @if (AppShell.IsUserLoggedIn)
     {
         <ul>
             <!--Admin Pages Here-->
@@ -67,7 +71,7 @@
                 </a>
             </li>
         </ul>
-    }
+    }*@
    @* @else
     {
         <ul>
@@ -97,12 +101,12 @@
         AppShell.OnChange -= StateHasChanged;
     }
 
-    public async void Logout()
+ @*   public async void Logout()
     {
         AppShell.ClearSessionUser();
         AppShell.CurrentUser = null;
         AppShell.IsUserLoggedIn = false;
         await InvokeAsync(StateHasChanged);
         Nav.NavigateTo($"/login?returnto=home");
-    }
+    }*@
 }

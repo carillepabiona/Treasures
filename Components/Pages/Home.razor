@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@page "/home"
 @inject NavigationManager Navigation
 @using System.Net;
 @using System.Net.Sockets;
@@ -90,6 +90,12 @@
             </div>
         }
     </div>
+
+  @*  <!-- ALL Button -->
+    <div class="category-card" onclick="showAllFoodItems()">
+        <img src="all_icon.jpg" alt="All" />
+        <p>ALL</p>
+    </div>*@
 </section>
 
 <section id="filteredItems">

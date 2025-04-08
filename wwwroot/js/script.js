@@ -156,13 +156,41 @@ function renderFoodItems(items) {
     });
 }
 renderFoodItems(foodData);
-
-// ----- Filter by Category -----
-function filterCategory(cat) {
-    if (!cat) return renderFoodItems(foodData);
-    const filtered = foodData.filter(item => item.category.toLowerCase() === cat.toLowerCase());
-    renderFoodItems(filtered);
+/*
+// Function to filter food items based on category
+function filterCategory(categoryName) {
+    const filteredItems = foodData.filter(item => item.category === categoryName);
+    displayFoodItems(filteredItems);
 }
+
+// Function to show all food items
+function showAllFoodItems() {
+    displayFoodItems(foodData); // Display all items
+}
+
+// Function to display food items in the grid
+function displayFoodItems(items) {
+    const foodGrid = document.getElementById('foodGrid');
+    foodGrid.innerHTML = ''; // Clear existing items
+
+    items.forEach(item => {
+        const foodItemDiv = document.createElement('div');
+        foodItemDiv.classList.add('food-item');
+
+        foodItemDiv.innerHTML = `
+            <img src="${item.img}" alt="${item.name}" />
+            <p>${item.name}</p>
+            <p>${item.price}</p>
+        `;
+
+        foodGrid.appendChild(foodItemDiv);
+    });
+}
+
+// Initial display of all items (if desired)
+document.addEventListener('DOMContentLoaded', function () {
+    showAllFoodItems();
+});*/
 
 // ----- Search Box -----
 function showSearchBox() {

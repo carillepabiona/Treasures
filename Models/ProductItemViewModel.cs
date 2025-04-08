@@ -9,6 +9,8 @@ namespace Treasure.Models
     public class ProductItemViewModel : BaseViewModel
     {
         public int Quantity { get; set; }
-        public Product Item { get; set; } 
+        public Product Item { get; set; }
+        public double TotalPrice => Item.Price * Quantity;
     }
 }
+

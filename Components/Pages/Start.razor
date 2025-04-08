@@ -1,0 +1,16 @@
+﻿@page "/"
+
+@inject NavigationManager Navigation
+<head>
+    <link rel="stylesheet" href="homeStyles.css">
+</head>
+<div class="start-page">
+    <button class="start-btn" @onclick="StartOrdering">Start Ordering</button>
+</div>
+
+@code {
+    void StartOrdering()
+    {
+        Navigation.NavigateTo("/home");
+    }
+}
