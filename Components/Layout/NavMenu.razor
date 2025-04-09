@@ -91,7 +91,7 @@
 </nav>
 
 @code {
-    protected override void OnInitialized()
+    @* protected override void OnInitialized()
     {
         AppShell.OnChange += StateHasChanged;
     }
@@ -101,7 +101,7 @@
         AppShell.OnChange -= StateHasChanged;
     }
 
- @*   public async void Logout()
+    public async void Logout()
     {
         AppShell.ClearSessionUser();
         AppShell.CurrentUser = null;
