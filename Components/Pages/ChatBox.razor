@@ -17,9 +17,9 @@
         }
     </div>
     <input @bind="OutgoingMessage" placeholder="Type a message..."
-           style="width: 200px; padding: 10px; font-size: 16px; margin-top: 10px; border: 1px solid #FF6F00; border-radius: 5px;" />
+    style="width: 200px; padding: 10px; font-size: 16px; margin-top: 10px; border: 1px solid #FF6F00; border-radius: 5px;" />
     <button @onclick="SendMessageToSender"
-            style="background-color: #FF6F00; color: white; padding: 10px; font-size: 16px; border: none; border-radius: 5px; margin-top: 5px; cursor: pointer;">
+    style="background-color: #FF6F00; color: white; padding: 10px; font-size: 16px; border: none; border-radius: 5px; margin-top: 5px; cursor: pointer;">
         Send
     </button>
 </div>
@@ -39,7 +39,7 @@
     private List<string> Messages = new();
     private string OutgoingMessage = "";
 
-    private const string SenderIP = "192.168.254.143"; // Replace with actual sender IP (reverse of receiver)
+    private const string SenderIP = "192.168.254.159"; // Replace with actual sender IP (reverse of receiver)
     private const int SenderPort = 5000; // Same port unless different for sender
 
     protected override async Task OnInitializedAsync()
@@ -111,6 +111,7 @@
             catch (Exception ex)
             {
                 Console.WriteLine($"Sending error: {ex.Message}");
+                
             }
         }
     }
