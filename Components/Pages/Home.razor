@@ -130,12 +130,6 @@
 <button class="toggle-food-detail-btn" @onclick="ToggleFoodDetailPanel"><i class="fa-solid fa-circle-chevron-left"></i></button>
 
 
-
-
-
-
-
-
 @code {
     private List<FoodCategory> FoodCategories = FoodCategoryData.GetFoodCategories();
     private List<FoodItem> FoodItems = FoodItemData.GetFoodItems();
@@ -182,11 +176,6 @@
         // Add to cart logic
         Console.WriteLine($"Added {FoodItemData.Quantity} of {FoodItemData.SelectedFoodItem.Name} to cart.");
         // You can store the cart data in a shared service or a local collection
-    }
-
-    private void CloseFoodDetails()
-    {
-        FoodItemData.SelectedFoodItem = null; // Deselect the current food item to close the panel
     }
 
     /////////////////////  /////////////////////  /////////////////////  /////////////////////  /////////////////////
