@@ -9,31 +9,6 @@ function hideSearchBox() {
     $('#controlBox').show();
 }
 
-
-// ----- Chat Box Logic ----- //
-function toggleChat(event) {
-    const chatBox = document.getElementById("chatBox");
-    const cartSidebar = document.getElementById("cartSidebar");
-
-    // Close cart if open
-    if (cartSidebar.classList.contains("open")) {
-        cartSidebar.classList.remove("open");
-    }
-
-    chatBox.classList.toggle("open");
-
-    // Listen for clicks outside to close
-    if (chatBox.classList.contains("open")) {
-        document.getElementById("chatBadge").style.display = "none"; // Hide notification dot when opened
-        document.addEventListener("click", closeOnClickOutside);
-    } else {
-        document.removeEventListener("click", closeOnClickOutside);
-    }
-
-
-    event.stopPropagation(); // Prevent click from propagating
-}
-
 // Chat Notification function
 function showChatNotification() {
     const chatBadge = document.getElementById("chatBadge");
