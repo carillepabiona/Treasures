@@ -15,7 +15,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #6dbb4b;
+    background: #1f5514;
     padding: 10px 20px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     position: fixed;
@@ -30,6 +30,13 @@
     background: none;
     font-size: 20px;
     cursor: pointer;
+}
+
+.fa-bars {
+    color: white;
+}
+.fa-times{
+    color:white;
 }
 
 .text-primary {

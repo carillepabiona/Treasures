@@ -93,6 +93,16 @@
 <section id="filteredItems">
     <div class="food-items">
         <h4>FOOD ITEMS</h4>
+        <div class="food-grid" id="foodGrid">
+            @foreach (var foodItem in FilteredFoodItems)
+            {
+                <button class="food-card">
+                    <img src="@foodItem.Image" alt="@foodItem.Name" />
+                    <p>@foodItem.Name</p>
+                    <p>₱@foodItem.Price</p>
+                </button>
+            }
+        </div>
         <div id="foodGrid" class="food-grid">
             @foreach (var item in FoodItemData.GetFoodItems())
             {
@@ -114,13 +124,17 @@
                 <p>@FoodItemData.SelectedFoodItem.Description</p>
                 <h4>₱@FoodItemData.SelectedFoodItem.Price.ToString("F2")</h4>
 
-                <div>
-                    <button @onclick="DecreaseQuantity">-</button>
-                    <span>@FoodItemData.Quantity</span>
-                    <button @onclick="IncreaseQuantity">+</button>
-                </div>
+                <div class="popup-footer">
+                    <div class="quantity-controls">
+                        <button class="qty-btn" @onclick="DecreaseQuantity">-</button>
+                        <span class="qty-value">@FoodItemData.Quantity</span>
+                        <button class="qty-btn" @onclick="IncreaseQuantity">+</button>
+                    </div>
 
-                <button @onclick="AddToCart">Add to Cart</button>
+                    <button class="add-to-cart-btn" @onclick="AddToCart">
+                        Add to Cart
+                    </button>
+                </div>
             </div>
         }
     </div>
@@ -178,6 +192,12 @@
         // You can store the cart data in a shared service or a local collection
     }
 
+    private void CloseFoodDetails()
+    {
+        FoodItemData.SelectedFoodItem = null; // Deselect the current food item to close the panel
+    }
+
+
     /////////////////////  /////////////////////  /////////////////////  /////////////////////  /////////////////////
 
     private TcpListener _listener;
@@ -185,7 +205,7 @@
     private List<string> Messages = new();
     private string OutgoingMessage = "";
 
-    private const string SenderIP = "192.168.254.143"; // Update to actual sender IP
+    private const string SenderIP = "192.168.254.106"; // Update to actual sender IP
     private const int SenderPort = 5000;
 
     protected override async Task OnInitializedAsync()
